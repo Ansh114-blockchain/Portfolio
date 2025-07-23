@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansh Bhardwaj | Full Stack Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Microsoft-inspired color palette */
+      --ms-blue: #0078d4;
+      --ms-dark: #1a1a1a;
+      --ms-light: #f3f2f1;
+      --ms-purple: #881798;
+      --ms-teal: #00b294;
+      --ms-orange: #ff8c00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: var(--ms-light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background layers with z-index */
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 10% 20%, rgba(0, 120, 212, 0.1) 0%, transparent 20%),
+                  radial-gradient(circle at 90% 80%, rgba(136, 23, 152, 0.1) 0%, transparent 20%);
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="1" fill="rgba(0,184,216,0.5)"/><circle cx="75" cy="75" r="1" fill="rgba(0,184,216,0.5)"/></svg>');
+      opacity: 0.3;
+    }
+
+    /* Header */
+    header {
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--ms-blue), var(--ms-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--ms-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--ms-blue);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--ms-blue);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== Enhanced Hero/Picture Section ===== */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      padding-top: 6rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-content {
+      flex: 1;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--ms-blue), var(--ms-teal));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      opacity: 0.9;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--ms-light);
+      font-size: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      color: var(--ms-blue);
+      transform: translateY(-3px);
+    }
+
+    .hero-image-container {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 3rem;
+    }
+
+    .hero-image {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--ms-blue);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .hero-image:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 25px rgba(0, 120, 212, 0.4);
+      border-color: var(--ms-teal);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .hero-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo-caption {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      color: var(--ms-teal);
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .hero-image:hover + .photo-caption {
+      color: var(--ms-blue);
+      transform: translateY(5px);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 8rem;
+      }
+
+      .hero-image-container {
+        margin: 2rem auto 0;
+      }
+
+      .hero-image {
+        width: 180px;
+        height: 180px;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero p {
+        text-align: center;
+      }
+    }
+
+    /* Sections */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--ms-blue), var(--ms-purple));
+      border-radius: 2px;
+    }
+
+    /* Projects */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      transition: all 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      border-color: var(--ms-blue);
+    }
+
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--ms-blue);
+    }
+
+    .project-card p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-card ul {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    .project-card li {
+      margin-bottom: 0.5rem;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      background: rgba(0, 120, 212, 0.2);
+      color: var(--ms-blue);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .project-links a:hover {
+      background: var(--ms-blue);
+      color: white;
+    }
+
+    /* Skills */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .skill-category {
+      background: rgba(30, 30, 30, 0.7);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .skill-category h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--ms-teal);
+    }
+
+    .skill-category ul {
+      list-style: none;
+    }
+
+    .skill-category li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .skill-category li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--ms-blue);
+    }
+
+    /* Contact */
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(30, 30, 30, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      backdrop-filter: blur(5px);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    button {
+      background: linear-gradient(to right, var(--ms-blue), var(--ms-purple));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 120, 212, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(26, 26, 26, 0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 8rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .social-links {
+        justify-content: center;
+      }
+
+      nav ul {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer"></div>
+  <div class="particles"></div>
+
+  <header>
+    <nav>
+      <div class="logo">Ansh Bhardwaj</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Full Stack Developer & AI Enthusiast</h1>
+      <p>I build scalable web applications with modern technologies. Passionate about problem-solving and creating efficient solutions.</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/ansh-bhardwaj-0a441724b/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/Ansh114-blockchain" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://docs.google.com/document/d/1_3G0C2stoiTN86rbuCVPLzdBlPnvgW4C/edit?usp=sharing&ouid=118138509896629850486&rtpof=true&sd=true"><i class="fas fa-file-pdf"></i></a>
+      </div>
+    </div>
+    
+    <div class="hero-image-container">
+      <div class="hero-image">
+        <img src="ansh.jpg" alt="Ansh Bhardwaj">
+      </div>
+      <p class="photo-caption">Ansh Bhardwaj<br>Fullstack Web Developer || MERN Developer</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>LeetMetric Web App</h3>
+        <p>Node.js | Express.js | EJS | LeetCode API</p>
+        <ul>
+          <li>Developed a performance analytics dashboard to track coding progress</li>
+          <li>Integrated LeetCode API for real-time data fetching</li>
+          <li>Reduced manual tracking time by 30% through automation</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/Ansh114-blockchain/Ansh-leet-metric-repo" target="_blank"><i class="fab fa-github"></i> Code</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>IoT System Reliability</h3>
+        <p>Java | IoT Sensors | SKRD Internship</p>
+        <ul>
+          <li>Implemented IoT solutions to improve system reliability by 20%</li>
+          <li>Worked with sensor integration and real-time data processing</li>
+          <li>Gained hands-on experience with Java-based technologies</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://drive.google.com/file/d/1mO0z0sibrHf9qkHZIbWPx17AoOEygL_1/view?usp=sharing">Certifacte</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>Weather Web App</h3>
+        <p>HTML | CSS | JavaScript | OpenWeather API</p>
+        <ul>
+          <li>Built a responsive weather application with dynamic data rendering</li>
+          <li>Implemented error handling for API failures</li>
+          <li>Enhanced UX with intuitive design</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/Ansh114-blockchain/Weather-Web-App"><i class="fab fa-github"></i> Code</a>
+          <a href=" https://ansh114-blockchain.github.io/Weather-Web-App/"><i class="fas fa-external-link-alt"></i> Live</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills-container">
+      <div class="skill-category">
+        <h3><i class="fas fa-code"></i> Programming Languages</h3>
+        <ul>
+          <li>Java</li>
+          <li>JavaScript</li>
+          <li>C++</li>
+          <li>Python</li>
+          <li>Solidity</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3><i class="fas fa-laptop-code"></i> Frontend Development</h3>
+        <ul>
+          <li>HTML5/CSS3</li>
+          <li>Bootstrap</li>
+          <li>React</li>
+          <li>EJS</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3><i class="fas fa-server"></i> Backend Development</h3>
+        <ul>
+          <li>Node.js</li>
+          <li>Express.js</li>
+          <li>RESTful APIs</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3><i class="fas fa-database"></i> Databases</h3>
+        <ul>
+          <li>MySQL</li>
+          <li>MongoDB</li>
+          <li>Oracle</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
+        <ul>
+          <li>Git/GitHub</li>
+          <li>VS Code</li>
+          <li>IntelliJ IDEA</li>
+          <li>Power BI</li>
+          <li>Tableau</li>
+        </ul>
+      </div>
+
+      <div class="skill-category">
+        <h3><i class="fas fa-certificate"></i> Certifications</h3>
+        <ul>
+          <li>SQL Programming</li>
+          <li>Java Programming</li>
+          <li>Digital Productivity with AI</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+  <h2>Get In Touch</h2>
+  <form action="https://formsubmit.co/bhardwajansh48@gmail.com" method="POST">
+    <!-- Honeypot for spam -->
+    <input type="text" name="_honey" style="display: none;">
+    
+    <!-- Disable captcha -->
+    <input type="hidden" name="_captcha" value="false">
+    
+    <!-- Success redirect (optional) -->
+    <input type="hidden" name="_next" value="https://yourportfolio.com/thank-you.html">
+    
+    <input type="text" name="Name" placeholder="Your Name" required>
+    <input type="email" name="Email" placeholder="Your Email" required>
+    <textarea name="Message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+  </form>
+</section>
+
+  <footer>
+    <p>© 2024 Ansh Bhardwaj. All rights reserved.</p>
+  </footer>
+</body>
+</html>
